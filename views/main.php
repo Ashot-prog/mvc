@@ -11,7 +11,6 @@
         <th>Check</th>
     </tr>
     <?php
-
     foreach($products as $product){
         echo "
             <tr><td>$product[name]</td>

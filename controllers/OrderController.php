@@ -6,7 +6,7 @@
     use models\OrderProducts;
     use models\ProductModel;
 
-    class OrderController  
+    class OrderController  extends BaseController
     {
         private $orders;
         private $users;
@@ -33,10 +33,8 @@
                     $errors['email'] = 'email is required';
                 }
                 if(!empty($errors)) {
-                    ob_start();
-                    require_once $_SERVER['DOCUMENT_ROOT'].'/views/products.php';
-                    $out = ob_get_clean();
-                    return $out;
+                    return $this->render('products','');
+
                 } else {
                    $id = $this->users->create($_POST['name'], $_POST['lastname'], $_POST['email']);
                    $today = date('y/d/m');
@@ -51,10 +49,8 @@
 
 
                     $products =  $this->product->getAll();
-                    ob_start();
-                    require_once $_SERVER['DOCUMENT_ROOT'].'/views/main.php';
-                    $out = ob_get_clean();
-                    return $out;
+                    return $this->render('main', compact('products'));
+
                 }
             }
         }

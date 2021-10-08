@@ -7,6 +7,7 @@
     {
         private $tablename = 'order_products';
         private $conn;
+
         function __construct(){
             $db = DB::getInstance();
             $this->conn = $db::getConnection();

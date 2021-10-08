@@ -2,10 +2,8 @@
     namespace controllers;
 
     use models\ProductModel;
-    use db\DB;
 
-
-    class ProductController  
+    class ProductController extends BaseController
     {
         private $model;
 
@@ -17,10 +15,13 @@
         public function index()
         {
             $products =  $this->model->getAll();
-            ob_start();
-            require_once $_SERVER['DOCUMENT_ROOT'].'/views/main.php';
-            $out = ob_get_clean();
-            return $out;
+            return $this->render('main',compact('products'));
+
+
+//            ob_start();
+//            require_once $_SERVER['DOCUMENT_ROOT'].'/views/main.php';
+//            $out = ob_get_clean();
+//            return $out;
         }
 
         public function add()
@@ -34,14 +35,12 @@
                 } elseif(empty($_POST['price'])) {
                     $errors['price'] = 'price is required';
                 } else {
-                    $addmesaage = 'Product Added';
                     $this->model->create($_POST['name'],$_POST['description'],$_POST['price']);
                 }
             }
-            ob_start();
-            require_once $_SERVER['DOCUMENT_ROOT'].'/views/add.php';
-            $out = ob_get_clean();
-            return $out;
+            return $this->render('products',compact(''));
+
+
         }
 
 
@@ -51,10 +50,8 @@
             $selected = new ProductModel();
             $selected->getSelected();
             $errors = array();
-            ob_start();
-            require_once $_SERVER['DOCUMENT_ROOT'].'/views/products.php';
-            $out = ob_get_clean();
-            return $out;
+            return $this->render('products');
+
         }
 
     }
